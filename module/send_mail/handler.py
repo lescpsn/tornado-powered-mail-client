@@ -1,10 +1,9 @@
 import tornado
-from config import USERNAME, PASSWORD, HOST
-from module.smtp.utils import Email, SimpleMail
-from module.smtp.utils import QueMail
+from module.send_mail.utils import Email, SimpleMail
+from module.send_mail.utils import QueMail
 
 
-class EmailHandler(tornado.web.RequestHandler):
+class SMTPRequestHandler(tornado.web.RequestHandler):
 
     def get(self):
         self.render("templates/index.html")

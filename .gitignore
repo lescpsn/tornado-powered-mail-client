@@ -1,0 +1,4 @@
+_config.py
+.idea/
+*.pyc
+__pycache__/

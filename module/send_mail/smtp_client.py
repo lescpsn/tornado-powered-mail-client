@@ -16,7 +16,7 @@ Example of use:
     qm.end() 
 '''
 from multiprocessing.queues import Queue
-from config import SENDER
+from config import SMTP_SENDER
 
 '''
 Simpler Module without non-blocking I/O implementation.
@@ -39,7 +39,7 @@ class SimpleMail:
         smtp.connect(self.host, self.port)
         smtp.login(self.username, self.password)
         msg = MIMEText(msg)
-        sender = SENDER
+        sender = SMTP_SENDER
         msg['Subject'] = subject
         msg['From'] = sender
         msg['To'] = ", ".join(recipients)
