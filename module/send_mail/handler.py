@@ -1,6 +1,6 @@
 import tornado
-from module.send_mail.utils import Email, SimpleMail
-from module.send_mail.utils import QueMail
+from module.send_mail.smtp_client import Email, SimpleMail
+from module.send_mail.smtp_client import QueMail
 
 
 class SMTPRequestHandler(tornado.web.RequestHandler):
