@@ -8,18 +8,15 @@ __author__ = 'arnab'
 
 import tornado
 from module.send_mail.smtp_client import Email, SimpleMail
-from module.send_mail.smtp_client import QueMail
+from module.send_mail.smtp_client import SmtpQueMail
 
 
 class IMAPRequestHandler(tornado.web.RequestHandler):
 
     def get(self):
-        # s = SimplePop3(username=POP3_USERNAME, password=POP3_PASSWORD, pop3_SSL='')
         i = SimpleImap(IMAP_USERNAME, IMAP_PASSWORD, IMAP_SSL)
         i.get_mail()
         self.render("templates/index.html")
 
-
     def post(self):
-
         self.render("templates/index.html")
