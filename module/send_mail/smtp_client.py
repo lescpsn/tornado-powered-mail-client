@@ -1,22 +1,5 @@
-'''
-Simple implementation of mailer based on thread and queues. Early version.
-@author: Marcin Chwalek <marcin@chwalek.pl>
-Example of use:
-    # at start
-    qm = QueMail.get_instance()
-    qm.init('smtp.host.com', 'user@auth.com', 'SecretPassword')
-    qm.start()
-    ...
-    # someware in app method
-    qm = QueMail.get_instance()
-    qm.send(Email(subject="Subject", text="Keep smiling :)", adr_to="marcinc81@gmail.com", adr_from="sender@email.com"))
-    
-    ...
-    # after everything, at end of app
-    qm.end() 
-'''
-from multiprocessing.queues import Queue
-from config import SMTP_SENDER
+
+from email_config import SMTP_SENDER
 
 '''
 Simpler Module without non-blocking I/O implementation.

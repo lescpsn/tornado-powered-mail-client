@@ -1,6 +1,6 @@
 from _config import IMAP_SSL
-from config import IMAP_USERNAME, IMAP_PASSWORD
-from config import POP3_USERNAME, POP3_PASSWORD
+from email_config import IMAP_USERNAME, IMAP_PASSWORD
+from email_config import POP3_USERNAME, POP3_PASSWORD
 from module.get_mail.imap_client import SimpleImap
 from module.get_mail.pop3_client import SimplePop3
 

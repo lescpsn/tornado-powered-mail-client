@@ -1,6 +1,7 @@
 import tornado
 from module.send_mail.smtp_client import Email, SimpleMail
 from module.send_mail.smtp_client import SmtpQueMail
+import email_config
 
 
 class SMTPRequestHandler(tornado.web.RequestHandler):
@@ -10,8 +11,6 @@ class SMTPRequestHandler(tornado.web.RequestHandler):
 
     def post(self):
         qm = SmtpQueMail.get_instance()
-        qm.send(Email(subject=self.get_argument('subject'), text=self.get_argument('message'), adr_to="ruddra90@gmail.com", adr_from="arnab.kumar@iappdragon.com"))
-        # s = SimpleMail(USERNAME, PASSWORD, HOST, 25)
-        # s.send_email(self.get_argument('message'), self.get_argument('subject'),
-        #              self.get_argument('email').strip().split(','))
+        qm.send(Email(subject=self.get_argument('subject'), text=self.get_argument('message'),
+                      adr_to=self.get_argument('email'), adr_from=email_config.SMTP_SENDER))
         self.render("templates/index.html")
