@@ -20,6 +20,7 @@ IMAP_USERNAME = 'ME'
 IMAP_PASSWORD = 'MYPASSWORD'
 IMAP_SSL = 'WHOAMI'
 IMAP_RECEIVER = 'NOREPLY@EXAMPLE.COM'
+IMAP_OUTPUT_TEXT = 'imap.txt'
 
 try:
     from _config import *  #my configuration

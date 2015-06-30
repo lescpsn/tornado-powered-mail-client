@@ -1,22 +1,5 @@
-'''
-Simple implementation of mailer based on thread and queues. Early version.
-@author: Marcin Chwalek <marcin@chwalek.pl>
-Example of use:
-    # at start
-    qm = QueMail.get_instance()
-    qm.init('smtp.host.com', 'user@auth.com', 'SecretPassword')
-    qm.start()
-    ...
-    # someware in app method
-    qm = QueMail.get_instance()
-    qm.send(Email(subject="Subject", text="Keep smiling :)", adr_to="marcinc81@gmail.com", adr_from="sender@email.com"))
-    
-    ...
-    # after everything, at end of app
-    qm.end() 
-'''
-from multiprocessing.queues import Queue
-from config import SMTP_SENDER
+
+from email_config import SMTP_SENDER
 
 '''
 Simpler Module without non-blocking I/O implementation.
@@ -68,9 +51,9 @@ from threading import Thread
 # q = Queue()
 from queue import Queue
 
-log = logging.getLogger("QueMail")
+log = logging.getLogger("SmtpQueMail")
 
-class QueMail(Thread):
+class SmtpQueMail(Thread):
     instance = None
 
     def init(self, smtp_host, smtp_login, smtp_pswd, smtp_port = 25, queue_size = 100):
@@ -84,7 +67,7 @@ class QueMail(Thread):
     def __init__(self):
         Thread.__init__(self)
         self._do_quit = False
-        self.setName("QueMail")
+        self.setName("SmtpQueMail")
         self.smtp_host = None
         self.smtp_login = None
         self.smtp_password = None
@@ -123,7 +106,6 @@ class QueMail(Thread):
                         except Exception as e:
                             log.error(u"Exception occured while sending email: %s" % eml)
                             log.exception(e)
-                            # FIXME not good idea: when exception occured, add email at end of queue
                             self._queue.put(eml, False)
                             sleep(1)
                 except Exception as e:
@@ -134,13 +116,13 @@ class QueMail(Thread):
             sleep(self.check_interval)
 
     def send(self, eml):
-        self._queue.put(eml, True, 5);
+        self._queue.put(eml, True, 5)
         log.debug(u'Accepted (qs=%i): %s' % (self._queue.qsize(), eml))
         
     @classmethod
     def get_instance(cls):
         if not cls.instance:
-            cls.instance = QueMail()
+            cls.instance = SmtpQueMail()
         return cls.instance
 
 
